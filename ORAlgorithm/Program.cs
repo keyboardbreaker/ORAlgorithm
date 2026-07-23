@@ -1,35 +1,45 @@
-﻿using System.Linq;
-
-string ORfunction(string input)
+﻿string ORfunction(string input)
 {
     if (input.Length == 0)
     {
         return "";
     }
     
-    List<char> reversedInput = new List<char>(input.Reverse());
-    string reversedInputString = String.Concat(reversedInput);
-    
-    List<char> ordered = input.OrderBy(x => x).ToList();
-    string orderedString = string.Join("", ordered);
-    string earliestLetter = orderedString[0].ToString();
-    
-    int countOfVowels = 0;
-    for (int i = 0; i < input.Length; i++)
-    {
-        if (input[i] == 'a' ||
-            input[i] == 'e' ||
-            input[i] == 'i' ||
-            input[i] == 'o' ||
-            input[i] == 'u')
-        {
-            countOfVowels++;
-        }
-    }
-    
-    string lastWord = countOfVowels % 2 == 0 ? "rent" : "open";
+    string reversedInputString = ReverseString(input);
+    char earliestLetter = GetEarliestCharacter(input);
 
+    int vowelCount = CountVowels(input);
+    
+    string lastWord = vowelCount % 2 == 0 ? "rent" : "open";
+    Console.WriteLine($"{reversedInputString}{earliestLetter}{lastWord}");
     return $"{reversedInputString}{earliestLetter}{lastWord}";
 }
+
+/// <summary>
+/// Return the input string reversed.
+/// </summary>
+string ReverseString(string input)
+{
+    return new string(input.Reverse().ToArray());
+}
+
+/// <summary>
+/// Returns the ealiest character in the string
+/// Comparison is case-insensitive.
+/// </summary>
+char GetEarliestCharacter(string input)
+{
+    return input.ToLowerInvariant().Min();
+}
+
+/// <summary>
+/// Counts case-insensitive vowels
+/// </summary>
+int CountVowels(string input)
+{
+    const string vowels = "aeiou";
+    return input.Count(character => vowels.Contains(char.ToLowerInvariant(character)));
+}
+
 
 ORfunction("nepo");
