@@ -1,17 +1,16 @@
 ﻿string ORfunction(string input)
 {
-    if (input.Length == 0)
+    if (string.IsNullOrEmpty(input))
     {
-        return "";
+        return string.Empty;
     }
     
     string reversedInputString = ReverseString(input);
     char earliestLetter = GetEarliestCharacter(input);
-
     int vowelCount = CountVowels(input);
     
     string lastWord = vowelCount % 2 == 0 ? "rent" : "open";
-    Console.WriteLine($"{reversedInputString}{earliestLetter}{lastWord}");
+
     return $"{reversedInputString}{earliestLetter}{lastWord}";
 }
 
